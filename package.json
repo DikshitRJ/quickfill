@@ -1,0 +1,46 @@
+{
+  "name": "quickfill",
+  "version": "1.0.0",
+  "description": "Quickfill MCP Server: Hot-reloading Alpine.js environment for local file parsing.",
+  "author": "quickfill-developer",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "modelcontextprotocol",
+    "alpinejs",
+    "interactive"
+  ],
+  "type": "module",
+  "main": "build/index.js",
+  "bin": {
+    "quickfill": "build/index.js"
+  },
+  "files": [
+    "build",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
+    "start": "node build/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "express": "^4.18.2",
+    "get-port": "^7.0.0",
+    "open": "^10.1.0",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.19",
+    "@types/ws": "^8.5.10",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
