@@ -1,8 +1,8 @@
 # Quickfill 🚀
 
-**Quickfill** is a Quickfill MCP Server that allows AI models to "bring code to life" by instantly rendering interactive, hot-reloading Alpine.js environments. 
+**Quickfill** is a Quickfill MCP Server that allows AI models to "bring conversation to life" by instantly rendering interactive, hot-reloading, lightweight frontends. 
 
-It is designed to bridge the gap between static AI text responses and functional user experiences. Instead of just seeing code, the user **feels** the application through a live browser interface.
+It is designed to bridge the gap between static AI text responses and functional user experiences. Instead of just seeing code, the user **feels** the conversation through a live browser interface.
 
 ## 🌟 The "Quickfill" Workflow
 The power of this server lies in rapid prototyping and data visualization:
@@ -11,6 +11,7 @@ The power of this server lies in rapid prototyping and data visualization:
 2.  **Generate UI**: The AI writes a tailored Alpine.js/Tailwind dashboard with charts and filters.
 3.  **Mount & Render**: The AI uses `mount_file` to bridge your local data to the browser and `render_interactive_ui` to launch the frontend.
 4.  **Interact**: You immediately interact with a functional mockup of your data in a live browser tab.
+This MCP Server can be used to quickly interact with data, look at quick prototypes, etc. without the overhead of initializing a frontend project. Just tell your AI agent to show you whatever you want to see, and the MCP server directly renders it without creating a frontend project, or saving any file to the disk. Just by sending the Alpine.js frontend code to the MCP Server.
 
 ## ✨ Features
 
@@ -27,14 +28,12 @@ The power of this server lies in rapid prototyping and data visualization:
 
 ### Run via npx (Direct)
 ```bash
-npx quickfill
+npx -y @dikshitrj/quickfill-mcp@latest
 ```
 
 ### MCP Configuration
 To use this with an MCP client (like Claude Desktop), add it to your configuration file:
 
-**MacOS:** `~/Library/Application\ Support/Claude/claude_desktop_config.json`  
-**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -43,7 +42,7 @@ To use this with an MCP client (like Claude Desktop), add it to your configurati
       "command": "npx",
       "args": [
         "-y", 
-        "@dikshitrj/quickfill-mcp"
+        "@dikshitrj/quickfill-mcp@latest"
       ]
     }
   }
