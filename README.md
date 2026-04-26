@@ -11,6 +11,7 @@ The power of this server lies in rapid prototyping and data visualization:
 2.  **Generate UI**: The AI writes a tailored Alpine.js/Tailwind dashboard with charts and filters.
 3.  **Mount & Render**: The AI uses `mount_file` to bridge your local data to the browser and `render_interactive_ui` to launch the frontend.
 4.  **Interact**: You immediately interact with a functional mockup of your data in a live browser tab.
+
 This MCP Server can be used to quickly interact with data, look at quick prototypes, etc. without the overhead of initializing a frontend project. Just tell your AI agent to show you whatever you want to see, and the MCP server directly renders it without creating a frontend project, or saving any file to the disk. Just by sending the Alpine.js frontend code to the MCP Server.
 
 ## ✨ Features
