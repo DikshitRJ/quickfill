@@ -41,7 +41,10 @@ To use this with an MCP client (like Claude Desktop), add it to your configurati
   "mcpServers": {
     "quickfill": {
       "command": "npx",
-      "args": ["-y", "quickfill"]
+      "args": [
+        "-y", 
+        "@dikshitrj/quickfill-mcp"
+      ]
     }
   }
 }
