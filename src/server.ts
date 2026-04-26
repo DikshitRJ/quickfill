@@ -20,7 +20,13 @@ export class QuickfillServer {
       ws.on('close', () => this.clients.delete(ws));
     });
 
-    this.app.use(express.static(fsManager.tempDir));
+    this.app.use(express.static(fsManager.tempDir, {
+      setHeaders: (res) => {
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+      }
+    }));
   }
 
   async start() {

@@ -12,18 +12,28 @@ export async function handleRenderUi(htmlBody: string, requiredLibs: string[] = 
   const shouldOpen = openInBrowser ?? isFirstRun;
 
   if (shouldOpen) {
-    process.stderr.write(`[Tools] Opening browser: ${quickfillServer.getUrl()}` + "\n");
-    await open(quickfillServer.getUrl());
+    process.stderr.write(`[Tools] Attempting to open browser: ${quickfillServer.getUrl()}` + "\n");
+    try {
+      await open(quickfillServer.getUrl());
+      process.stderr.write(`[Tools] Browser open command issued successfully` + "\n");
+    } catch (err) {
+      process.stderr.write(`[Tools] Failed to open browser: ${err}` + "\n");
+    }
     isFirstRun = false;
-  } else {
-    quickfillServer.broadcastReload();
+  }
+
+  quickfillServer.broadcastReload();
+
+  let status = `UI updated. Preview available at ${quickfillServer.getUrl()}`;
+  if (shouldOpen) {
+    status += ` (Attempted to open browser)`;
   }
 
   return {
     content: [
       {
         type: 'text',
-        text: `UI updated. Preview available at ${quickfillServer.getUrl()}`,
+        text: status,
       },
     ],
   };

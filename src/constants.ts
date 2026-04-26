@@ -9,15 +9,25 @@ export const CDN_LINKS = {
 export const HOT_RELOAD_SCRIPT = (wsPort: number) => `
 <script>
   (function() {
-    const socket = new WebSocket('ws://localhost:${wsPort}');
-    socket.onmessage = (msg) => { 
-      if(msg.data === 'reload') {
-        console.log('Hot reload triggered');
-        window.location.reload(); 
-      }
-    };
-    socket.onclose = () => console.log('Hot reload disconnected');
-    socket.onerror = (err) => console.error('Hot reload error:', err);
+    let socket;
+    function connect() {
+      socket = new WebSocket(\`ws://\${window.location.host}\`);
+      socket.onmessage = (msg) => { 
+        if(msg.data === 'reload') {
+          console.log('Hot reload triggered');
+          window.location.reload(); 
+        }
+      };
+      socket.onclose = () => {
+        console.log('Hot reload disconnected, retrying in 1s...');
+        setTimeout(connect, 1000);
+      };
+      socket.onerror = (err) => {
+        console.error('Hot reload error:', err);
+        socket.close();
+      };
+    }
+    connect();
   })();
 </script>
 `;
