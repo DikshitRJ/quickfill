@@ -1,5 +1,7 @@
 # Quickfill MCP Server
 
+[![npm version](https://img.shields.io/npm/v/@dikshitrj/quickfill-mcp.svg)](https://www.npmjs.com/package/@dikshitrj/quickfill-mcp)
+
 **Quickfill** is an MCP Server that allows AI models to "bring conversation to life" by instantly rendering interactive, hot-reloading, lightweight frontends. 
 
 It is designed to bridge the gap between static AI text responses and functional user experiences. Instead of just seeing code, the user **feels** the conversation through a live browser interface.
