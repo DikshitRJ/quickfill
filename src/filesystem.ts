@@ -17,13 +17,19 @@ export class FileSystemManager {
           fs.rmSync(this.tempDir, { recursive: true, force: true });
         }
       } catch (err) {
-          process.stderr.write(`Failed to cleanup temp directory ${this.tempDir}: ${err}\n`);
+        process.stderr.write(`Failed to cleanup temp directory ${this.tempDir}: ${err}\n`);
       }
     };
 
     process.on('exit', cleanup);
-    process.on('SIGINT', () => { cleanup(); process.exit(); });
-    process.on('SIGTERM', () => { cleanup(); process.exit(); });
+    process.on('SIGINT', () => {
+      cleanup();
+      process.exit();
+    });
+    process.on('SIGTERM', () => {
+      cleanup();
+      process.exit();
+    });
   }
 
   public mountFile(absolutePath: string): string {
@@ -33,7 +39,7 @@ export class FileSystemManager {
 
     const fileName = path.basename(absolutePath);
     const destPath = path.join(this.tempDir, fileName);
-    
+
     fs.copyFileSync(absolutePath, destPath);
     return `./${fileName}`;
   }

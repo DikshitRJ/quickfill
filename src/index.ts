@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { quickfillServer } from './server.js';
 import { handleRenderUi, handleMountFile } from './tools.js';
 
@@ -43,7 +40,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
             },
             open_in_browser: {
               type: 'boolean',
-              description: 'Whether to automatically open the UI in the browser. Defaults to true on first run.',
+              description:
+                'Whether to automatically open the UI in the browser. Defaults to true on first run.',
             },
           },
           required: ['html_body'],
@@ -69,7 +67,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
-  process.stderr.write(`[Debug] Calling tool: ${name} with args: ${JSON.stringify(args)}` + "\n");
+  process.stderr.write(`[Debug] Calling tool: ${name} with args: ${JSON.stringify(args)}` + '\n');
 
   try {
     if (name === 'render_interactive_ui') {
@@ -87,12 +85,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     throw new Error(`Tool not found: ${name}`);
-  } catch (error: any) {
+  } catch (error) {
     return {
       content: [
         {
           type: 'text',
-          text: `Error: ${error.message}`,
+          text: `Error: ${error instanceof Error ? error.message : String(error)}`,
         },
       ],
       isError: true,
@@ -106,16 +104,16 @@ async function main() {
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  process.stderr.write('Quickfill MCP server running on stdio' + "\n");
+  process.stderr.write('Quickfill MCP server running on stdio' + '\n');
 
   // Ensure process exits when the client closes the connection
   process.stdin.on('close', () => {
-    process.stderr.write('MCP client disconnected (stdin closed). Exiting process.' + "\n");
+    process.stderr.write('MCP client disconnected (stdin closed). Exiting process.' + '\n');
     process.exit(0);
   });
 }
 
 main().catch((error) => {
-   process.stderr.write(`Fatal error in main(): ${error}\n`);
+  process.stderr.write(`Fatal error in main(): ${error}\n`);
   process.exit(1);
 });

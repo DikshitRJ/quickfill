@@ -1,3 +1,14 @@
-*/build*
-*node_modules*
-*dist*
+node_modules/
+dist/
+build/
+.eslintcache
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

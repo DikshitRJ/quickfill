@@ -5,19 +5,23 @@ import { HTML_BOILERPLATE } from './constants.js';
 
 let isFirstRun = true;
 
-export async function handleRenderUi(htmlBody: string, requiredLibs: string[] = [], openInBrowser?: boolean) {
+export async function handleRenderUi(
+  htmlBody: string,
+  requiredLibs: string[] = [],
+  openInBrowser?: boolean
+) {
   const fullHtml = HTML_BOILERPLATE(htmlBody, requiredLibs, quickfillServer.port);
   fsManager.writeIndexHtml(fullHtml);
 
   const shouldOpen = openInBrowser ?? isFirstRun;
 
   if (shouldOpen) {
-    process.stderr.write(`[Tools] Attempting to open browser: ${quickfillServer.getUrl()}` + "\n");
+    process.stderr.write(`[Tools] Attempting to open browser: ${quickfillServer.getUrl()}` + '\n');
     try {
       await open(quickfillServer.getUrl());
-      process.stderr.write(`[Tools] Browser open command issued successfully` + "\n");
+      process.stderr.write(`[Tools] Browser open command issued successfully` + '\n');
     } catch (err) {
-      process.stderr.write(`[Tools] Failed to open browser: ${err}` + "\n");
+      process.stderr.write(`[Tools] Failed to open browser: ${err}` + '\n');
     }
     isFirstRun = false;
   }
@@ -50,12 +54,12 @@ export function handleMountFile(absolutePath: string) {
         },
       ],
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       content: [
         {
           type: 'text',
-          text: `Error mounting file: ${error.message}`,
+          text: `Error mounting file: ${error instanceof Error ? error.message : String(error)}`,
         },
       ],
       isError: true,

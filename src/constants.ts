@@ -1,12 +1,15 @@
 export const CDN_LINKS = {
-  alpine: '<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>',
+  alpine:
+    '<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>',
   tailwind: '<script src="https://cdn.tailwindcss.com"></script>',
-  pdfjs: '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>',
+  pdfjs:
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>',
   xlsx: '<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>',
-  tesseract: '<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>'
+  tesseract:
+    '<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>',
 };
 
-export const HOT_RELOAD_SCRIPT = (wsPort: number) => `
+export const HOT_RELOAD_SCRIPT = (_wsPort: number) => `
 <script>
   (function() {
     let socket;
