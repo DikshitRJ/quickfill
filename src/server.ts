@@ -27,12 +27,12 @@ export class QuickfillServer {
   async start() {
     this.port = await getPort({ port: [3000, 3001, 3002, 3003, 3004, 3005] });
     this.server.listen(this.port, () => {
-      console.error(`[Server] Web server running at http://localhost:${this.port}`);
+      process.stderr.write(`[Server] Web server running at http://localhost:${this.port}` + "\n");
     });
   }
 
   broadcastReload() {
-    console.error(`[Server] Broadcasting reload to ${this.clients.size} clients`);
+    process.stderr.write(`[Server] Broadcasting reload to ${this.clients.size} clients` + "\n");
     for (const client of this.clients) {
       if (client.readyState === WebSocket.OPEN) {
         client.send('reload');

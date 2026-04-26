@@ -1,8 +1,8 @@
 {
-  "name": "quickfill",
-  "version": "1.0.0",
+  "name": "@dikshitrj/quickfill-mcp",
+  "version": "1.0.12",
   "description": "Quickfill MCP Server: Hot-reloading Alpine.js environment for local file parsing.",
-  "author": "quickfill-developer",
+  "author": "dikshitrj",
   "license": "MIT",
   "keywords": [
     "mcp",
@@ -14,7 +14,7 @@
   "type": "module",
   "main": "build/index.js",
   "bin": {
-    "quickfill": "build/index.js"
+    "quickfill-mcp": "build/index.js"
   },
   "files": [
     "build",

@@ -10,7 +10,7 @@ export async function handleRenderUi(htmlBody: string, requiredLibs: string[] = 
   fsManager.writeIndexHtml(fullHtml);
 
   if (isFirstRun) {
-    console.error(`[Tools] First run: opening ${quickfillServer.getUrl()}`);
+    process.stderr.write(`[Tools] First run: opening ${quickfillServer.getUrl()}` + "\n");
     await open(quickfillServer.getUrl());
     isFirstRun = false;
   } else {

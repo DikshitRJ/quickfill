@@ -12,12 +12,12 @@ export const HOT_RELOAD_SCRIPT = (wsPort: number) => `
     const socket = new WebSocket('ws://localhost:${wsPort}');
     socket.onmessage = (msg) => { 
       if(msg.data === 'reload') {
-        console.log('Hot reload triggered');
+        process.stderr.write('Hot reload triggered');
         window.location.reload(); 
       }
     };
-    socket.onclose = () => console.log('Hot reload disconnected');
-    socket.onerror = (err) => console.error('Hot reload error:', err);
+    socket.onclose = () => process.stderr.write('Hot reload disconnected');
+    socket.onerror = (err) => process.stderr.write('Hot reload error:', err + "\n");
   })();
 </script>
 `;

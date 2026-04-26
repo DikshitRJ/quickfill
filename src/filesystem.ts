@@ -17,7 +17,7 @@ export class FileSystemManager {
           fs.rmSync(this.tempDir, { recursive: true, force: true });
         }
       } catch (err) {
-        console.error(`Failed to cleanup temp directory ${this.tempDir}:`, err);
+          process.stderr.write(`Failed to cleanup temp directory ${this.tempDir}: ${err}\n`);
       }
     };
 

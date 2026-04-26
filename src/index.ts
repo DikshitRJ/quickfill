@@ -65,7 +65,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
-  console.error(`[Debug] Calling tool: ${name} with args: ${JSON.stringify(args)}`);
+  process.stderr.write(`[Debug] Calling tool: ${name} with args: ${JSON.stringify(args)}` + "\n");
 
   try {
     if (name === 'render_interactive_ui') {
@@ -101,16 +101,16 @@ async function main() {
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('Quickfill MCP server running on stdio');
+  process.stderr.write('Quickfill MCP server running on stdio' + "\n");
 
   // Ensure process exits when the client closes the connection
   process.stdin.on('close', () => {
-    console.error('MCP client disconnected (stdin closed). Exiting process.');
+    process.stderr.write('MCP client disconnected (stdin closed). Exiting process.' + "\n");
     process.exit(0);
   });
 }
 
 main().catch((error) => {
-  console.error('Fatal error in main():', error);
+   process.stderr.write(`Fatal error in main(): ${error}\n`);
   process.exit(1);
 });
