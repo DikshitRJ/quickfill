@@ -50,6 +50,7 @@ jobs:
             VERSION="${VERSION}.0"
           fi
           
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Syncing package.json to version $VERSION"
           npm version $VERSION --no-git-tag-version --allow-same-version
 
@@ -59,13 +60,16 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create package tarball
-        run: npm pack
+        run: |
+          ORIGINAL_NAME=$(npm pack)
+          FINAL_NAME="quickfill-mcp-v${{ env.VERSION }}.tar.gz"
+          mv "$ORIGINAL_NAME" "$FINAL_NAME"
+          echo "ARTIFACT_NAME=$FINAL_NAME" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            *.tgz
+          files: ${{ env.ARTIFACT_NAME }}
           generate_release_notes: true
           draft: false
           prerelease: false

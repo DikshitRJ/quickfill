@@ -1,42 +1,94 @@
-# Quickfill MCP Server
+# ⚡ Quickfill: The Generative UI Toolkit for AI Agents
 
-[![npm version](https://img.shields.io/npm/v/@dikshitrj/quickfill-mcp.svg)](https://www.npmjs.com/package/@dikshitrj/quickfill-mcp)
+<div align="center">
 
-**Quickfill** is an MCP Server that allows AI models to "bring conversation to life" by instantly rendering interactive, hot-reloading, lightweight frontends. 
+[![NPM](https://nodei.co/npm/@dikshitrj/quickfill-mcp.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@dikshitrj/quickfill-mcp)
 
-It is designed to bridge the gap between static AI text responses and functional user experiences. Instead of just seeing code, the user **feels** the conversation through a live browser interface.
+[![npm version](https://img.shields.io/npm/v/@dikshitrj/quickfill-mcp?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@dikshitrj/quickfill-mcp)
+[![license](https://img.shields.io/github/license/DikshitRJ/quickfill-mcp?style=for-the-badge)](LICENSE)
+[![stars](https://img.shields.io/github/stars/DikshitRJ/quickfill-mcp?style=for-the-badge&logo=github)](https://github.com/DikshitRJ/quickfill-mcp/stargazers)
+[![workflow](https://img.shields.io/github/actions/workflow/status/DikshitRJ/quickfill-mcp/ci.yml?style=for-the-badge&logo=github-actions)](https://github.com/DikshitRJ/quickfill-mcp/actions)
 
-## 🌟 The "Quickfill" Workflow
-The power of this server lies in rapid prototyping and data visualization:
+**Transform static AI conversations into vibrant, interactive experiences.**  
+Quickfill is a lightweight **Generative UI Toolkit** delivered via the Model Context Protocol (MCP).
 
-1.  **Visualize Data**: Feed an Excel sheet or PDF to the AI.
-2.  **Generate UI**: The AI writes a tailored Alpine.js/Tailwind dashboard with charts and filters.
-3.  **Mount & Render**: The AI uses `mount_file` to bridge your local data to the browser and `render_interactive_ui` to launch the frontend.
-4.  **Interact**: You immediately interact with a functional mockup of your data in a live browser tab.
+[Explore the Docs](#-table-of-contents) • [Quick Start](#-usage) • [GitHub](https://github.com/DikshitRJ/quickfill-mcp)
 
-This MCP Server can be used to quickly interact with data, look at quick prototypes, etc. without the overhead of initializing a frontend project. Just tell your AI agent to show you whatever you want to see, and the MCP server directly renders it without creating a frontend project, or saving any file to the disk. Just by sending the Alpine.js frontend code to the MCP Server.
+</div>
 
-## ✨ Features
+---
 
--   **render_interactive_ui**: Updates a browser-based Alpine.js UI with instant hot-reload.
--   **mount_file**: Securely copies local files (PDF/Excel/Images) to a temporary web-root so the browser can parse them via WASM (bypassing local file restrictions).
--   **Built-in Graphics Stack**: Includes out-of-the-box support for:
-    -   **Tailwind CSS**: For modern, beautiful styling.
-    -   **Alpine.js**: For lightweight, reactive interactivity.
-    -   **PDF.js**: For client-side PDF rendering.
-    -   **SheetJS (XLSX)**: For parsing spreadsheets directly in the browser.
-    -   **Tesseract.js**: For client-side OCR.
+## 📖 Table of Contents
+- [🌟 Overview](#-overview)
+- [✨ The "Generative UI" Workflow](#-the-generative-ui-workflow)
+- [🎨 Core Features](#-core-features)
+- [🛠 Tool Reference](#-tool-reference)
+- [🚀 Usage & Configuration](#-usage--configuration)
+- [📈 Star History](#-star-history)
+- [🏗 Development](#-development)
+- [📜 License](#-license)
 
-## 🚀 Usage
+---
 
-### Run via npx (Direct)
+## 🌟 Overview
+**Quickfill** bridges the gap between AI reasoning and functional user interfaces. Instead of the AI simply describing a dashboard or a tool, it **builds and launches it** instantly in your browser. No project setup, no `npm install`, no boilerplate—just pure generative UI.
+
+It uses a high-performance stack powered by **Hono**, **Alpine.js**, and **Tailwind CSS** to render lightweight, hot-reloading frontends directly from your conversation.
+
+---
+
+## ✨ The "Generative UI" Workflow
+The power of Quickfill lies in its ability to bridge local data with interactive frontends:
+
+1.  📊 **Analyze**: Feed an Excel sheet, PDF, or image to your AI agent.
+2.  🎨 **Generate**: The AI drafts a custom-tailored UI using Tailwind & Alpine.js.
+3.  🔗 **Bridge**: Use `mount_file` to expose your local data to the secure web environment.
+4.  🚀 **Launch**: Use `render_interactive_ui` to pop open a live, functional dashboard in your browser.
+
+---
+
+## 🎨 Core Features
+- ⚡ **Instant Rendering**: Zero-config browser UI updates with hot-reload.
+- 📁 **Local Bridging**: `mount_file` creates secure symlinks to bypass browser file restrictions.
+- 🛠 **Native Graphics Stack**:
+    - **Tailwind CSS**: Utility-first styling for modern designs.
+    - **Alpine.js**: Lightweight reactivity for complex interactions.
+    - **WASM Parsers**: Built-in support for `PDF.js`, `SheetJS`, and `Tesseract.js` (OCR).
+- 🚀 **Performant**: Built with **Hono** and **Biome** for maximum speed and minimal overhead.
+
+---
+
+## 🛠 Tool Reference
+
+### 🖼 `render_interactive_ui`
+The primary engine for Generative UI. It creates or updates the interactive browser view.
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `html_body` | `string` | The HTML/Alpine.js body content to render. |
+| `required_libs` | `string[]` | Optional. Choose from `["excel", "pdf", "ocr"]` to inject heavy libraries. |
+| `open_in_browser` | `boolean` | Whether to automatically open the tab. Defaults to `true` on first call. |
+
+### 🖇 `mount_file`
+Securely exposes a local file to the web server's root. Essential for letting the browser "see" your local data.
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `absolute_path` | `string` | The full path to the local file. |
+
+**Returns:** A relative URL (e.g., `./data.xlsx`) that you can use in your UI code's `fetch()` or `src` attributes.
+
+---
+
+## 🚀 Usage & Configuration
+
+### Quick Run
 ```bash
 npx -y @dikshitrj/quickfill-mcp@latest
 ```
 
-### MCP Configuration
-To use this with an MCP client (like Claude Desktop), add it to your configuration file:
-
+### 🖥 Claude Desktop Integration
+Add this to your `claude_desktop_config.json`:
 
 ```json
 {
@@ -52,30 +104,33 @@ To use this with an MCP client (like Claude Desktop), add it to your configurati
 }
 ```
 
-## 🛠 Tools
+---
 
-### `render_interactive_ui`
-Renders or updates the browser interface.
-- `html_body`: The HTML/Alpine.js content.
-- `required_libs`: (Optional) Choose from `["excel", "pdf", "ocr"]` to inject specific WASM parsers.
+## 📈 Star History
 
-### `mount_file`
-Exposes a local file to the web environment.
-- `absolute_path`: The full path to the file on your machine.
-- Returns a relative URL that can be used in your `fetch()` calls or `src` attributes within the UI.
+[![Star History Chart](https://api.star-history.com/svg?repos=DikshitRJ/quickfill-mcp&type=Date)](https://star-history.com/#DikshitRJ/quickfill-mcp&Date)
+
+---
 
 ## 🏗 Development
+The project is built with **Node.js** and optimized with **Biome**.
 
 ```bash
-# Install dependencies
+# Setup
 npm install
 
-# Build the project
+# Build the production bundle
 npm run build
 
-# Start the server locally
-npm start
+# Run quality checks
+npm run check
+
+# Run tests
+npm test
 ```
 
+---
+
 ## 📜 License
-MIT
+Built with ❤️ by [DikshitRJ](https://github.com/DikshitRJ).  
+This project is licensed under the [MIT License](LICENSE).
