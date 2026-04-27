@@ -50,7 +50,7 @@ gemini extensions install https://github.com/DikshitRJ/quickfill-mcp
 ```
 2. You can now use the `quickfill` subagent directly:
 ```bash
-gemini invoke quickfill "Show me a dashboard of my recent analytics"
+gemini invoke quickfill-mcp "Show me a dashboard of my recent analytics"
 ```
 
 ---
