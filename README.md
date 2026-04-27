@@ -4,7 +4,6 @@
 
 [![NPM](https://nodei.co/npm/@dikshitrj/quickfill-mcp.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@dikshitrj/quickfill-mcp)
 
-[![npm version](https://img.shields.io/npm/v/@dikshitrj/quickfill-mcp?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@dikshitrj/quickfill-mcp)
 [![license](https://img.shields.io/github/license/DikshitRJ/quickfill-mcp?style=for-the-badge)](LICENSE)
 [![stars](https://img.shields.io/github/stars/DikshitRJ/quickfill-mcp?style=for-the-badge&logo=github)](https://github.com/DikshitRJ/quickfill-mcp/stargazers)
 [![workflow](https://img.shields.io/github/actions/workflow/status/DikshitRJ/quickfill-mcp/ci.yml?style=for-the-badge&logo=github-actions)](https://github.com/DikshitRJ/quickfill-mcp/actions)
@@ -12,7 +11,7 @@
 **Transform static AI conversations into vibrant, interactive experiences.**  
 Quickfill is a lightweight **Generative UI Toolkit** delivered via the Model Context Protocol (MCP).
 
-[🚀 Quick Start Guide](USAGE.md) • [🤖 Agent Guidelines](AGENTS.md) • [🤝 Contributing](CONTRIBUTING.md) • [GitHub](https://github.com/DikshitRJ/quickfill-mcp)
+[🚀 Quick Start Guide](USAGE.md) • [🤝 Contributing](CONTRIBUTING.md) • [GitHub](https://github.com/DikshitRJ/quickfill-mcp)
 
 </div>
 
@@ -101,6 +100,7 @@ npm run check
 # Run tests
 npm test
 ```
+Check out [CONTRIBUTNG.md](CONTRIBUTING.md) for contributing to this repository.
 
 ---
 
