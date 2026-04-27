@@ -1,12 +1,12 @@
 export const CDN_LINKS = {
-	alpine:
-		'<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>',
-	tailwind: '<script src="https://cdn.tailwindcss.com"></script>',
-	pdfjs:
-		'<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>',
-	xlsx: '<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>',
-	tesseract:
-		'<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>',
+  alpine:
+    '<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>',
+  tailwind: '<script src="https://cdn.tailwindcss.com"></script>',
+  pdfjs:
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>',
+  xlsx: '<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>',
+  tesseract:
+    '<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>',
 };
 
 export const HOT_RELOAD_SCRIPT = (_wsPort: number) => `
@@ -35,11 +35,7 @@ export const HOT_RELOAD_SCRIPT = (_wsPort: number) => `
 </script>
 `;
 
-export const HTML_BOILERPLATE = (
-	body: string,
-	libs: string[],
-	wsPort: number,
-) => `
+export const HTML_BOILERPLATE = (body: string, libs: string[], wsPort: number) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,9 +44,9 @@ export const HTML_BOILERPLATE = (
     <title>Quickfill Preview</title>
     ${CDN_LINKS.tailwind}
     ${CDN_LINKS.alpine}
-    ${libs.includes("pdf") ? CDN_LINKS.pdfjs : ""}
-    ${libs.includes("excel") ? CDN_LINKS.xlsx : ""}
-    ${libs.includes("ocr") ? CDN_LINKS.tesseract : ""}
+    ${libs.includes('pdf') ? CDN_LINKS.pdfjs : ''}
+    ${libs.includes('excel') ? CDN_LINKS.xlsx : ''}
+    ${libs.includes('ocr') ? CDN_LINKS.tesseract : ''}
     ${HOT_RELOAD_SCRIPT(wsPort)}
     <style>
         [x-cloak] { display: none !important; }

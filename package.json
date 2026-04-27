@@ -36,10 +36,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@hono/node-server": "^2.0.0",
     "@modelcontextprotocol/sdk": "^1.0.1",
+    "express": "^4.18.2",
     "get-port": "^7.0.0",
-    "hono": "^4.12.15",
     "open": "^10.1.0",
     "ws": "^8.16.0"
   },
