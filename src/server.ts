@@ -12,9 +12,10 @@ export class QuickfillServer {
 	private wss?: WebSocketServer;
 	public port: number = 0;
 	private clients: Set<WebSocket> = new Set();
+	private shellClients: Set<WebSocket> = new Set();
 
 	constructor() {
-		this.app.use("/*", async (c, next) => {
+		this.app.use("/*", async (c: any, next: any) => {
 			await next();
 			c.header(
 				"Cache-Control",
@@ -24,11 +25,16 @@ export class QuickfillServer {
 			c.header("Expires", "0");
 		});
 
+		this.app.get("/shell", async (c: any) => {
+			const { getShellHtml } = await import("./constants.js");
+			return c.html(getShellHtml(this.port));
+		});
+
 		this.app.use(
 			"/*",
 			serveStatic({
 				root: fsManager.tempDir,
-				rewriteRequestPath: (path) => path.replace(/^\//, ""),
+				rewriteRequestPath: (p: string) => p.replace(/^\//, ""),
 			}),
 		);
 	}
@@ -42,19 +48,27 @@ export class QuickfillServer {
 					fetch: this.app.fetch,
 					port: this.port,
 				},
-				(info) => {
+				(info: any) => {
 					process.stderr.write(
 						`[Server] Web server running at http://localhost:${info.port}\n`,
 					);
 
-					// Cast to unknown then Server to bypass Http2Server property mismatches with ws
 					this.wss = new WebSocketServer({
 						server: this.server as unknown as Server,
 					});
 
-					this.wss.on("connection", (ws) => {
-						this.clients.add(ws);
-						ws.on("close", () => this.clients.delete(ws));
+					this.wss.on("connection", (ws: WebSocket, req: any) => {
+						const url = req.url || "";
+						if (url.includes("/shell")) {
+							this.shellClients.add(ws);
+						} else {
+							this.clients.add(ws);
+						}
+
+						ws.on("close", () => {
+							this.clients.delete(ws);
+							this.shellClients.delete(ws);
+						});
 					});
 
 					resolve();
@@ -74,8 +88,23 @@ export class QuickfillServer {
 		}
 	}
 
+	broadcastHtmlUpdate(html: string) {
+		process.stderr.write(
+			`[Server] Broadcasting HTML update to ${this.shellClients.size} shell clients\n`,
+		);
+		for (const client of this.shellClients) {
+			if (client.readyState === WebSocket.OPEN) {
+				client.send(`html:${html}`);
+			}
+		}
+	}
+
 	getUrl() {
 		return `http://localhost:${this.port}`;
+	}
+
+	getShellUrl() {
+		return `http://localhost:${this.port}/shell`;
 	}
 }
 

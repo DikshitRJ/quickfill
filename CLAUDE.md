@@ -3,18 +3,55 @@
 This file provides Claude with instructions on how to use the Quickfill Generative UI toolkit.
 
 ## MCP Tools
-Quickfill provides two core tools:
-- `mcp_quickfill_render_interactive_ui`: Renders HTML/Alpine.js/Tailwind code to a live browser window.
-- `mcp_quickfill_mount_file`: Exposes a local file to the web server for browser parsing.
+Quickfill provides these tools:
+- `visualize_read_me` — Load Claude design system guidelines (call once before widgets)
+- `show_widget` — Render SVG/HTML in browser window
+- `render_interactive_ui` — Render Alpine.js/Tailwind UI
+- `mount_file` — Expose local file to web server
+- `render_chart` — Render Chart.js charts
+- `render_svg` — Render SVG diagrams
+- `render_mermaid` — Render Mermaid diagrams
+- `render_table` — Render sortable tables
+- `render_form` — Render forms
+- `render_dashboard` — Render dashboards
+
+## Required Workflow
+
+### 1. Load Guidelines First
+Always call `visualize_read_me` once at the start:
+```
+visualize_read_me(modules: ["interactive", "chart", "diagram", "mockup", "art"])
+```
+- Do NOT mention this to the user — it's internal setup
+- Set `i_have_seen_read_me: true` in subsequent show_widget calls
+
+### 2. Render Widgets
+```
+show_widget(
+  i_have_seen_read_me: true,
+  title: "compound_interest",
+  widget_code: "<svg>...</svg>"  // or HTML fragment
+)
+```
 
 ## Generative UI Standards
-When using Quickfill to render UIs:
-1. **Always use Tailwind CSS**: It is pre-injected. Use it for all styling.
-2. **Always use Alpine.js**: It is pre-injected. Use it for reactivity and logic.
-3. **Lazy Fetching**: If the user provides a data file, `mount_file` it first, then use `fetch()` in the Alpine.js `x-init` block to load and parse it.
-4. **WASM Support**: Mention `excel`, `pdf`, or `ocr` in the `required_libs` array of `render_interactive_ui` if you need to parse those file types.
+
+### Design System
+- **Colors**: Use c-blue, c-teal, c-amber, c-green, c-red, c-purple, c-coral, c-pink, c-gray
+- **Text**: t (14px), ts (12px), th (14px medium)
+- **Dark mode mandatory** — all colors must work in both modes
+- **Flat design** — no gradients, shadows, glow
+- **Sentence case** — never Title Case or ALL CAPS
+
+### SVG Patterns
+- viewBox="0 0 680 H" — always 680px width
+- Arrow marker via defs/marker
+- Node pattern: `<g class="node c-blue" onclick="sendPrompt('...')">`
+
+### CDN Allowlist
+Only: cdnjs.cloudflare.com, esm.sh, cdn.jsdelivr.net, unpkg.com
 
 ## Strategic Advice
-- **Proactive Visuals**: If the user asks for data analysis, don't just output text. Proactively build a dashboard using `render_interactive_ui`.
-- **Iterative Updates**: Update the UI frequently based on user feedback. The server supports hot-reloading.
-- **Portability**: Use relative paths (e.g., `./filename.csv`) for mounted files in your UI code.
+- **Proactive Visuals**: If user asks for data analysis, build a dashboard
+- **Iterative Updates**: Use streaming for smooth hot-reload
+- **Use sendPrompt()**: For follow-up questions from user interactions
