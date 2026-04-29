@@ -15,7 +15,11 @@ Quickfill is a lightweight **Generative UI Toolkit** delivered via the Model Con
 
 </div>
 
+<video src="https://github.com/user-attachments/assets/a71142aa-3481-4a40-98d7-71567f6b9ac4" autoplay="autoplay" loop="loop" muted="muted" playsinline="playsinline" style="max-width: 100%;">
+</video>
+
 ---
+
 
 ## 📖 Table of Contents
 - [🌟 Overview](#-overview)
